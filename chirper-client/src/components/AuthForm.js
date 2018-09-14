@@ -37,16 +37,16 @@ class AuthForm extends Component {
                     <div className="col-md-6">
                         <form onSubmit={this.handleSubmit}>
                             <h2>{heading}</h2>
-                            <label htmlFor="email">Email:</label>
-                            <input
-                                autoComplete="off" 
-                                type="text" 
-                                className="form-control" 
-                                id="email" 
-                                name="email" 
-                                onChange={this.handleChange} 
-                                value={email}
-                            />
+                            <label htmlFor="username">Username</label>
+                                <input
+                                    autoComplete="off" 
+                                    type="text" 
+                                    className="form-control" 
+                                    id="username" 
+                                    name="username" 
+                                    onChange={this.handleChange} 
+                                    value={username}
+                                />
                             <label htmlFor="password">Password:</label>
                             <input 
                                 autoComplete="off"
@@ -60,15 +60,15 @@ class AuthForm extends Component {
                             {/* signUp passed in as prop at Main.js */}
                             {signUp && (
                             <div>
-                                <label htmlFor="username">Username</label>
+                                <label htmlFor="email">Email:</label>
                                 <input
                                     autoComplete="off" 
                                     type="text" 
                                     className="form-control" 
-                                    id="username" 
-                                    name="username" 
+                                    id="email" 
+                                    name="email" 
                                     onChange={this.handleChange} 
-                                    value={username}
+                                    value={email}
                                 />
                                 {/* Refactor later to include image uploades with Cloudinary */}
                                 <label htmlFor="image-url">Image URL</label>
