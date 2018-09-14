@@ -34,7 +34,7 @@ const Main = props => {
                 onAuth={authUser}
                 signUp
                 buttonText="Sign me up!"
-                heading="Join Warbler today."
+                heading="Become a Chirper Today"
                 {...props}
               />
             );
