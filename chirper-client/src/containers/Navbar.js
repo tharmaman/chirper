@@ -1,26 +1,29 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import Logo from "../images/warbler-logo.png"
 
 class Navbar extends Component {
-    rennder() {
+    render() {
         return (
             <nav className="navbar navbar-expand">
-                <div>
-                    <Link to="/" className="navbar-brand">
-                        <img src="" alt="Chirper Home" />
-                    </Link>
+                <div className="container-fluid">
+                    <div className="navbar-header">
+                        <Link to="/" className="navbar-brand">
+                            <img src={Logo} alt="Chirper Home" />
+                        </Link>
+                    </div>
+                    <ul className="nav navbar-nav navbar-right">
+                        <li>
+                            <Link to="/signup">Sign Up</Link>
+                        </li>
+                        <li>
+                            <Link to="/signin">Log In</Link>
+                        </li>
+                    </ul>
                 </div>
-                <ul className="nav navbar-nav navbar-right">
-                    <li>
-                        <Link to="/signup">Sign Up</Link>
-                    </li>
-                    <li>
-                        <Link to="/signin">Log In</Link>
-                    </li>
-                </ul>
             </nav>
-        )
+        );
     }
 }
 

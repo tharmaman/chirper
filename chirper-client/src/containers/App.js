@@ -14,6 +14,6 @@ const App = () => (
       </div>
     </Router>
   </Provider>
-)
+);
 
 export default App;
