@@ -1,6 +1,6 @@
 // load all of our environment variables
 const dotenv = require('dotenv').config();
-const PORT = process.env.PORT || 3001;
+const PORT = 8081;
 
 // requiring other dependencies
 const express = require("express");
