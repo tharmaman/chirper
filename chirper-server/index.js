@@ -11,6 +11,7 @@ const errorHandler = require("./handlers/error");
 const authRoutes = require("./routes/auth");
 const messagesRoutes = require("./routes/messages");
 const { loginRequired, ensureCorrectUser } = require("./middleware/auth");
+const db = require("./models");
 
 // initialize processes
 app.use(cors());
@@ -34,7 +35,7 @@ app.use(
 // add in login required middleware
 app.get("/api/messages", loginRequired, async function(req, res, next){
     try {
-        let messages = await debug.Message.find()
+        let messages = await db.Message.find()
         .sort({
             createdAt: "desc"
         })
