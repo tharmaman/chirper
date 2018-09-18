@@ -8,7 +8,7 @@ const MessageItem = ({
     profileImageURL, 
     text, 
     username,
-    removeMessage,
+    removeMessages,
     isCorrectUser
     }) => (
     <div>
@@ -27,6 +27,13 @@ const MessageItem = ({
                     </Moment>
                 </span>
                 <p>{text}</p>
+                {isCorrectUser && (
+                    <a 
+                        className="btn btn-danger" 
+                        onClick={removeMessages}>
+                        Delete
+                    </a>
+                )}
             </div>
         </li>
     </div>
