@@ -1,4 +1,11 @@
 import React, { Component } from "react";
+import Dropzone from 'react-dropzone';
+import axios from 'axios';
+
+// for cloudinary api
+require('dotenv').config();
+
+
 
 class AuthForm extends Component {
     constructor(props){
@@ -10,6 +17,36 @@ class AuthForm extends Component {
             profileImageURL: ""
         };
     }
+
+    /**
+     * for uploading from dropzone to cloudinary
+     */
+    handleDrop = files => {
+        // Push all the axios request promise into a single array
+        const uploaders = files.map(file => {
+          // Initial FormData
+          const formData = new FormData();
+          formData.append("file", file);
+          formData.append("tags", `codeinfuse, medium, gist`);
+          formData.append("upload_preset", process.env.REACT_APP_UPLOAD_PRESET); // Replace the preset name with your own
+          formData.append("api_key", process.env.REACT_APP_API_KEY); // Replace API key with your own Cloudinary key
+          formData.append("timestamp", (Date.now() / 1000) | 0);
+          
+          // Make an AJAX upload request using Axios (replace Cloudinary URL below with your own)
+          return axios.post("https://api.cloudinary.com/v1_1/tharmaman/image/upload", formData, {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+          }).then(response => {
+            const data = response.data;
+            const fileURL = data.secure_url // You should store this URL for future references in your app
+            console.log(data);
+            this.setState({profileImageURL: fileURL});
+            // Once all the files are uploaded 
+            axios.all(uploaders).then(() => {
+            // ... perform after upload is successful operation
+          });
+          })
+        });
+      }
 
     handleSubmit = (e) => {
         e.preventDefault();
@@ -31,7 +68,7 @@ class AuthForm extends Component {
     };
 
     render() {
-        const { email, username, password, profileImageURL } = this.state;
+        const { email, username, password } = this.state;
         const { heading, buttonText, signUp, errors, history, removeError } = this.props;
 
         history.listen(() => {
@@ -80,19 +117,23 @@ class AuthForm extends Component {
                                     onChange={this.handleChange} 
                                     value={email}
                                 />
-                                {/* Refactor later to include image uploades with Cloudinary */}
-                                <label htmlFor="image-url">Image URL</label>
-                                <input 
-                                    autoComplete="off"
-                                    type="text" 
-                                    className="form-control" 
-                                    id="image-url"
-                                    name="profileImageURL" 
-                                    onChange={this.handleChange}
-                                    value={profileImageURL}
-                                /> 
+                                <div class="center-div">
+                                    <br>
+                                    </br>
+                                    <Dropzone 
+                                            onDrop={this.handleDrop} 
+                                            multiple={false}
+                                            activeClassName="active-dropzone"                                         
+                                            accept="image/*" 
+                                        >
+                                        <p>Upload your Profile Picture</p>
+                                    </Dropzone>
+                                    <br>
+                                    </br>
+                                </div>
                             </div>
                             )}
+
                             <button
                                 type="submit"
                                 className="btn btn-primary btn-block btn-lg"
