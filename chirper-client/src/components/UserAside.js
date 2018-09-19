@@ -12,6 +12,9 @@ const userAside = ({ profileImageURL, username }) => (
                     height="200"
                     className="img-thumbnail" 
                 />
+                <h5>
+                    @{username}
+                </h5>
             </div>
         </div>
     </aside>

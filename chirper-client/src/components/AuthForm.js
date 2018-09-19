@@ -14,7 +14,8 @@ class AuthForm extends Component {
             email: "",
             username: "",
             password: "",
-            profileImageURL: ""
+            profileImageURL: "",
+            files: []
         };
     }
 
@@ -39,7 +40,10 @@ class AuthForm extends Component {
             const data = response.data;
             const fileURL = data.secure_url // You should store this URL for future references in your app
             console.log(data);
-            this.setState({profileImageURL: fileURL});
+            this.setState({
+                profileImageURL: fileURL,
+                files: files
+            });
             // Once all the files are uploaded 
             axios.all(uploaders).then(() => {
             // ... perform after upload is successful operation
@@ -120,14 +124,19 @@ class AuthForm extends Component {
                                 <div class="center-div">
                                     <br>
                                     </br>
-                                    <Dropzone 
-                                            onDrop={this.handleDrop} 
-                                            multiple={false}
-                                            activeClassName="active-dropzone"                                         
-                                            accept="image/*" 
-                                        >
-                                        <p>Upload your Profile Picture</p>
-                                    </Dropzone>
+                                        <Dropzone 
+                                                onDrop={this.handleDrop.bind(this)} 
+                                                multiple={false}
+                                                activeClassName="active-dropzone"                                         
+                                                accept="image/*" 
+                                            >
+                                            <p>Upload Your DP</p>
+                                            <ul>
+                                                {
+                                                this.state.files.map(f => <li>{f.name} - {f.size} bytes</li>)
+                                                }
+                                            </ul>
+                                        </Dropzone>
                                     <br>
                                     </br>
                                 </div>
